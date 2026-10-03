@@ -1,36 +1,112 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🎓 VLearn — Interactive Learning Management System
 
-## Getting Started
+> A full-stack, role-based Learning Management System featuring interactive classrooms, code-based enrollment, real-time collaboration, and timed quiz assessments with live leaderboards.
 
-First, run the development server:
+---
+
+## 🌟 Overview
+
+**VLearn** is designed to simplify online education by providing persistent, role-aware workspaces for teachers and learners. Instructors can organize classes, upload lecture materials, launch virtual meetings, and build timed assessments. Students can join via class codes, interact through live group chat, submit assignments to earn credit points, and review in-depth quiz analytics.
+
+---
+
+## 🚀 Key Features
+
+### 👨‍🏫 Instructor Studio
+
+* **Course & Roster Management**: Create classes and generate unique Join Codes (`VL-XXXXX`) or direct invite links.
+* **Lecture Hosting**: Upload video sessions, attach reference PDFs/notes, and set lesson durations.
+* **Coursework & Rubrics**: Post assignments with custom Credit Points (CP), guidelines, and reference files.
+* **Co-Teacher Collaboration**: Add fellow instructors with full classroom management permissions.
+* **Grading & Reviews**: Track student enrollments, inspect submission URLs, and assign scores.
+
+### 🎓 Student Workspace
+
+* **Code-Based Enrollment**: Join active classes instantly using a 6-character code or invitation link.
+* **Interactive Classroom**: Watch uploaded lectures, read notes, and download study attachments.
+* **Coursework Submission**: Turn in project URLs or solution files to claim credit points.
+* **Real-Time Group Chat**: Persistent classroom discussion channel for collaborative questions.
+* **Instant Virtual Meetings**: Join live video sessions with presenter streams and mic/camera controls.
+
+### 🎯 Assessment Engine (Public & Private)
+
+* **Public Campus Quizzes**: Open skill assessments accessible directly from the student workspace catalog.
+* **Private Classroom Quizzes**: Graded evaluations restricted strictly to enrolled course members.
+* **Quiz Builder Wizard**:
+* Set total questions, total marks, time limit, and deadlines.
+* Question formats: Single Choice, Multiple Choice (checkmarks), or One-Word answers.
+* Compulsory question flags and point weights.
+* Audience targeting: Publish to all enrolled students or selected learners.
+
+
+* **Detailed Analytics & Audit**:
+* **My Responses**: Question-by-question review with answer comparisons and solution rationales.
+* **Leaderboard**: Real-time ranks sorted by score and completion speed.
+* **Performance Metrics**: Attendance tracking, speed per question, and percentile standings.
+
+
+
+---
+
+## 🛠️ Tech Stack
+
+* **Frontend & Backend**: Next.js (App Router, Server Actions, API Routes)
+* **Language**: TypeScript
+* **Database & ORM**: SQLite + Prisma ORM
+* **Styling**: Tailwind CSS
+* **Icons**: Lucide React
+* **Authentication**: Cookie-based JWT with Role-Based Access Control (RBAC)
+
+---
+
+## ⚡ Quickstart
+
+### 1. Installation
+
+```bash
+git clone https://github.com/<YOUR_USERNAME>/vlearn.git
+cd vlearn
+npm install
+
+```
+
+### 2. Environment Setup
+
+Create a `.env` file in the root folder:
+
+```env
+DATABASE_URL="file:./prisma/dev.db"
+JWT_SECRET="vlearn-super-secure-jwt-secret-key-32chars"
+NODE_ENV="development"
+
+```
+
+### 3. Database Migration & Seed
+
+```bash
+npx prisma db push
+npx tsx prisma/seed.ts
+
+```
+
+### 4. Run Development Server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Visit `http://localhost:3000` in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🔐 Default Demo Accounts
 
-## Learn More
+* **Teacher**: `sarah@vlearn.edu` / `password123`
+* **Student**: `student1@vlearn.edu` / `password123`
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 📄 License
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+This project is open-source and available under the MIT License.
