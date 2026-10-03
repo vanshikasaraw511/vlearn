@@ -1,12 +1,17 @@
+````markdown
 # 🎓 VLearn — Interactive Learning Management System
 
-> A full-stack, role-based Learning Management System featuring interactive classrooms, code-based enrollment, real-time collaboration, and timed quiz assessments with live leaderboards.
+> A full-stack, role-based Learning Management System featuring interactive classrooms, code-based enrollment, assignment management, quizzes, progress tracking, and role-based learning experiences.
 
 ---
 
 ## 🌟 Overview
 
-**VLearn** is designed to simplify online education by providing persistent, role-aware workspaces for teachers and learners. Instructors can organize classes, upload lecture materials, launch virtual meetings, and build timed assessments. Students can join via class codes, interact through live group chat, submit assignments to earn credit points, and review in-depth quiz analytics.
+**VLearn** is a full-stack Learning Management System designed to simplify online education by providing role-aware workspaces for administrators, instructors, and students.
+
+Instructors can create and manage courses, organize learning materials, create assignments and quizzes, and monitor student progress. Students can join courses using unique class codes, access lessons, submit coursework, attempt quizzes, and track their learning progress.
+
+VLearn uses role-based access control (RBAC) to provide different features and permissions for administrators, instructors, and students.
 
 ---
 
@@ -14,48 +19,80 @@
 
 ### 👨‍🏫 Instructor Studio
 
-* **Course & Roster Management**: Create classes and generate unique Join Codes (`VL-XXXXX`) or direct invite links.
-* **Lecture Hosting**: Upload video sessions, attach reference PDFs/notes, and set lesson durations.
-* **Coursework & Rubrics**: Post assignments with custom Credit Points (CP), guidelines, and reference files.
-* **Co-Teacher Collaboration**: Add fellow instructors with full classroom management permissions.
-* **Grading & Reviews**: Track student enrollments, inspect submission URLs, and assign scores.
+- **Course Management**: Create and manage courses with unique Join Codes.
+- **Course Organization**: Organize lessons into structured modules.
+- **Lecture Content**: Add video-based lessons with descriptions and duration.
+- **Coursework & Assignments**: Create assignments with descriptions and maximum scores.
+- **Student Management**: View enrolled students and monitor course participation.
+- **Grading & Reviews**: Review student submissions and provide scores and feedback.
+- **Quiz Creation**: Create quizzes with multiple-choice questions and correct answers.
+- **Progress Monitoring**: Track student learning progress through course activities.
 
 ### 🎓 Student Workspace
 
-* **Code-Based Enrollment**: Join active classes instantly using a 6-character code or invitation link.
-* **Interactive Classroom**: Watch uploaded lectures, read notes, and download study attachments.
-* **Coursework Submission**: Turn in project URLs or solution files to claim credit points.
-* **Real-Time Group Chat**: Persistent classroom discussion channel for collaborative questions.
-* **Instant Virtual Meetings**: Join live video sessions with presenter streams and mic/camera controls.
+- **Code-Based Enrollment**: Join courses using unique course Join Codes.
+- **Interactive Classroom**: Access course modules, lessons, and learning materials.
+- **Video Lessons**: Watch video-based course content directly from the classroom.
+- **Assignment Submission**: Submit project links and coursework for evaluation.
+- **Quiz Assessments**: Attempt course quizzes and receive scores.
+- **Progress Tracking**: Track completed lessons and course progress.
+- **Notifications**: Receive important course and learning notifications.
+- **Role-Based Dashboard**: Access features based on the student's account permissions.
 
-### 🎯 Assessment Engine (Public & Private)
+### 🎯 Assessment Engine
 
-* **Public Campus Quizzes**: Open skill assessments accessible directly from the student workspace catalog.
-* **Private Classroom Quizzes**: Graded evaluations restricted strictly to enrolled course members.
-* **Quiz Builder Wizard**:
-* Set total questions, total marks, time limit, and deadlines.
-* Question formats: Single Choice, Multiple Choice (checkmarks), or One-Word answers.
-* Compulsory question flags and point weights.
-* Audience targeting: Publish to all enrolled students or selected learners.
+- **Course Quizzes**: Quizzes can be associated with specific courses.
+- **Question Management**: Create and manage quiz questions and answer options.
+- **Automatic Evaluation**: Quiz attempts are evaluated based on the configured correct answers.
+- **Score Tracking**: Store quiz scores and total marks for each attempt.
+- **Attempt History**: Maintain records of student quiz attempts.
+- **Assignment Evaluation**: Store submission scores, feedback, and grading status.
 
+---
 
-* **Detailed Analytics & Audit**:
-* **My Responses**: Question-by-question review with answer comparisons and solution rationales.
-* **Leaderboard**: Real-time ranks sorted by score and completion speed.
-* **Performance Metrics**: Attendance tracking, speed per question, and percentile standings.
+## 🔐 Authentication & Authorization
 
+VLearn uses secure cookie-based JWT authentication with **Role-Based Access Control (RBAC)**.
 
+The system supports three primary roles:
+
+- **ADMIN** — Platform administration and management.
+- **INSTRUCTOR** — Course, lesson, assignment, and quiz management.
+- **STUDENT** — Course enrollment, learning activities, submissions, and assessments.
 
 ---
 
 ## 🛠️ Tech Stack
 
-* **Frontend & Backend**: Next.js (App Router, Server Actions, API Routes)
-* **Language**: TypeScript
-* **Database & ORM**: SQLite + Prisma ORM
-* **Styling**: Tailwind CSS
-* **Icons**: Lucide React
-* **Authentication**: Cookie-based JWT with Role-Based Access Control (RBAC)
+- **Frontend & Backend**: Next.js 16 with App Router, Server Actions, and API Routes
+- **Language**: TypeScript
+- **Database**: PostgreSQL
+- **ORM**: Prisma ORM
+- **Styling**: Tailwind CSS
+- **Icons**: Lucide React
+- **Authentication**: Cookie-based JWT
+- **Authorization**: Role-Based Access Control (RBAC)
+- **Password Security**: bcryptjs
+- **Charts & Analytics**: Recharts
+
+---
+
+## 📁 Project Structure
+
+```text
+vlearn/
+├── prisma/
+│   ├── schema.prisma
+│   └── seed.ts
+├── public/
+├── src/
+│   ├── app/
+│   └── ...
+├── package.json
+├── next.config.ts
+├── tsconfig.json
+└── README.md
+````
 
 ---
 
@@ -63,50 +100,146 @@
 
 ### 1. Installation
 
+Clone the repository and install the dependencies:
+
 ```bash
-git clone https://github.com/<YOUR_USERNAME>/vlearn.git
+git clone https://github.com/vanshikasaraw511/vlearn.git
 cd vlearn
 npm install
-
 ```
 
 ### 2. Environment Setup
 
-Create a `.env` file in the root folder:
+Create a `.env` file in the root directory:
 
 ```env
-DATABASE_URL="file:./prisma/dev.db"
-JWT_SECRET="vlearn-super-secure-jwt-secret-key-32chars"
+DATABASE_URL="your-postgresql-database-url"
+JWT_SECRET="your-secure-jwt-secret"
 NODE_ENV="development"
-
 ```
 
-### 3. Database Migration & Seed
+> Replace `your-postgresql-database-url` with your PostgreSQL database connection string.
+
+> Do not commit your `.env` file or expose database credentials and secret keys publicly.
+
+### 3. Database Setup & Seed
+
+Generate the Prisma client, create/update the database schema, and populate the database with demo data:
 
 ```bash
+npx prisma generate
 npx prisma db push
-npx tsx prisma/seed.ts
-
+npx prisma db seed
 ```
+
+The seed script creates demo users, a sample course, modules, lessons, assignments, quizzes, enrollments, progress records, submissions, quiz attempts, and notifications.
 
 ### 4. Run Development Server
 
+Start the development server:
+
 ```bash
 npm run dev
-
 ```
 
-Visit `http://localhost:3000` in your browser.
+Open the application in your browser:
+
+```text
+http://localhost:3000
+```
 
 ---
 
 ## 🔐 Default Demo Accounts
 
-* **Teacher**: `sarah@vlearn.edu` / `password123`
-* **Student**: `student1@vlearn.edu` / `password123`
+| Role       | Email                 | Password      |
+| ---------- | --------------------- | ------------- |
+| Admin      | `admin@vlearn.edu`    | `password123` |
+| Instructor | `sarah@vlearn.edu`    | `password123` |
+| Student    | `student1@vlearn.edu` | `password123` |
+
+Additional demo student accounts are also created:
+
+```text
+student2@vlearn.edu
+student3@vlearn.edu
+...
+student10@vlearn.edu
+```
+
+All demo student accounts use:
+
+```text
+Password: password123
+```
+
+---
+
+## 🌱 Demo Course
+
+The seed data includes a sample course:
+
+**Advanced Full-Stack Engineering with Next.js**
+
+The course includes:
+
+* Architecture & Server Components
+* Data Access with Prisma ORM
+* Authentication & RBAC
+* Video-based lessons
+* Assignment
+* Quiz
+* Student enrollment
+* Progress tracking
+* Submission and grading data
+* Notifications
+
+---
+
+## 🚀 Production Deployment
+
+VLearn can be deployed on platforms that support Next.js and PostgreSQL, such as Render.
+
+For production deployment:
+
+1. Configure the `DATABASE_URL` environment variable with your PostgreSQL database URL.
+2. Configure a secure `JWT_SECRET`.
+3. Install dependencies.
+4. Generate the Prisma client.
+5. Synchronize the production database schema.
+6. Build the Next.js application.
+7. Start the production server.
+
+Example commands:
+
+```bash
+npm install
+npx prisma db push
+npm run build
+npm start
+```
+
+> For production environments, keep database credentials and authentication secrets in the hosting platform's environment variables rather than committing them to GitHub.
+
+---
+
+## ⚠️ Important Database Note
+
+The `prisma/seed.ts` script resets existing database records before inserting demo data.
+
+Therefore, **do not run the seed script on a production database containing real user data**, unless you intentionally want to reset that database.
+
+For local development, the seed script can be used to restore the demo environment:
+
+```bash
+npx prisma db seed
+```
 
 ---
 
 ## 📄 License
 
 This project is open-source and available under the MIT License.
+
+```
+```
